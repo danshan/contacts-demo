@@ -5,9 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.shanhh.demo</groupId>
-    <artifactId>demo-beans</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>demo-platform</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>platform-commons</module>
+        <module>platform-rom</module>
+        <module>platform-rest</module>
+    </modules>
 
     <developers>
         <developer>
@@ -32,6 +38,7 @@
         <lombok.version>0.11.6</lombok.version>
         <commons-pool2.version>2.2</commons-pool2.version>
         <fastjson.veriosn>1.1.41</fastjson.veriosn>
+        <guava.version>13.0.1</guava.version>
 
         <!-- Aspectjweaver -->
         <aspectj.version>1.5.4</aspectj.version>
@@ -66,6 +73,9 @@
 
         <!-- Hessian -->
         <hessian.version>4.0.7</hessian.version>
+
+        <!-- RestEasy -->
+        <resteasy.version>3.0.3.Final</resteasy.version>
 
     </properties>
 
@@ -112,9 +122,15 @@
         </pluginManagement>
     </build>
 
-
     <dependencyManagement>
         <dependencies>
+            <!-- Project -->
+            <dependency>
+                <groupId>com.shanhh.demo</groupId>
+                <artifactId>platform-commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Common -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -135,6 +151,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.veriosn}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
 
             <!--aspectjweaver-->
@@ -276,6 +297,50 @@
                 <groupId>com.caucho</groupId>
                 <artifactId>hessian</artifactId>
                 <version>${hessian.version}</version>
+            </dependency>
+
+            <!-- RestEasy -->
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jaxrs</artifactId>
+                <version>${resteasy.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-simple</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jackson-provider</artifactId>
+                <version>${resteasy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-links</artifactId>
+                <version>${resteasy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-spring</artifactId>
+                <version>${resteasy.version}</version>
+            </dependency>
+            <!--multipart provider-->
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-multipart-provider</artifactId>
+                <version>${resteasy.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
         </dependencies>
