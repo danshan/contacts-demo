@@ -1,5 +1,6 @@
 package com.shanhh.demo.contacts.web.resource;
 
+import com.shanhh.demo.contacts.web.resource.oauth.OAuthCallbackResource;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class ContactApplication extends Application implements InitializingBean {
 
+    @Resource
+    private OAuthCallbackResource oAuthCallbackResource;
     @Resource
     private ContactResource contactResource;
 
@@ -44,5 +47,6 @@ public class ContactApplication extends Application implements InitializingBean 
     @Override
     public void afterPropertiesSet() throws Exception {
         singletons.add(contactResource);
+        singletons.add(oAuthCallbackResource);
     }
 }

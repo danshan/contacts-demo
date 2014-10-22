@@ -1,11 +1,13 @@
 package com.shanhh.demo.contacts.web.resource;
 
 import com.shanhh.demo.contacts.api.service.ContactService;
+import org.jboss.resteasy.spi.HttpRequest;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 /**
@@ -15,11 +17,12 @@ import javax.ws.rs.core.Response;
 @Component
 @Path("/contacts")
 public class ContactResource {
+
     @Resource
     ContactService contactService;
 
     @GET
-    public Response findContact() {
+    public Response findContact(@Context HttpRequest request) {
         System.out.println(contactService.create());
         return Response.ok().build();
     }
