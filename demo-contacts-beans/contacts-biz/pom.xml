@@ -32,5 +32,19 @@
             <groupId>com.shanhh.demo</groupId>
             <artifactId>contacts-api</artifactId>
         </dependency>
+
+        <!-- Google -->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gdata</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
     </dependencies>
 </project>

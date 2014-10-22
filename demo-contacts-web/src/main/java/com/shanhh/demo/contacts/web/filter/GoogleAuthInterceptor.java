@@ -1,15 +1,12 @@
 package com.shanhh.demo.contacts.web.filter;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
-import com.shanhh.demo.platform.commons.utils.FileUtils;
+import com.shanhh.demo.contacts.api.service.OAuthService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.MultivaluedMap;
@@ -17,8 +14,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Class SecurityInterceptor.
@@ -30,12 +25,10 @@ import java.util.List;
 public class GoogleAuthInterceptor implements ContainerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(GoogleAuthInterceptor.class);
 
-    private static final String ACCESS_TOKEN = "access_token";
+    @Resource
+    private OAuthService oAuthService;
 
-    @Value("${google.client.secret.path}")
-    private String clientSecret;
-    @Value("${google.oauth2.server}")
-    private String oauth2Server;
+    private static final String ACCESS_TOKEN = "access_token";
 
     @Override
     public void filter(ContainerRequestContext requestContext) {
@@ -54,18 +47,7 @@ public class GoogleAuthInterceptor implements ContainerRequestFilter {
     }
 
     private Response buildRedirectResponse() {
-
-        JSONObject secretJson = JSON.parseObject(FileUtils.getString(GoogleAuthInterceptor.class.getResource("/" + clientSecret).getPath()));
-
-        List<String> scopes = new ArrayList<String>();
-        scopes.add(oauth2Server);
-
-        // Generate the URL to which we will direct users
-        String authorizeUrl = new GoogleAuthorizationCodeRequestUrl(
-                secretJson.getJSONObject("web").getString("client_id"),
-                secretJson.getJSONObject("web").getJSONArray("redirect_uris").getString(0),
-                scopes).build();
-
+        String authorizeUrl = oAuthService.getAuthorizeUrl();
         try {
             return Response.seeOther(new URI(authorizeUrl)).build();
         } catch (URISyntaxException e) {
