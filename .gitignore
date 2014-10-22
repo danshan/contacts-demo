@@ -22,3 +22,4 @@ classes
 bin
 *META-INF
 log4j.properties
+client_secret.json

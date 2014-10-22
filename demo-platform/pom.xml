@@ -57,6 +57,13 @@
         <!-- Spring Framework -->
         <spring.version>3.0.5.RELEASE</spring.version>
 
+        <!-- httpClient-->
+        <httpclient.version>4.2</httpclient.version>
+        <jackson.version>1.9.12</jackson.version>
+
+        <!-- json fastJson -->
+        <fastjson.version>1.1.35</fastjson.version>
+
         <!-- DAO layer -->
         <c3p0.version>0.9.1.2</c3p0.version>
         <mysql.version>5.1.22</mysql.version>
@@ -75,7 +82,7 @@
         <hessian.version>4.0.7</hessian.version>
 
         <!-- RestEasy -->
-        <resteasy.version>3.0.3.Final</resteasy.version>
+        <resteasy.version>3.0.6.Final</resteasy.version>
 
     </properties>
 
@@ -245,6 +252,34 @@
                 <artifactId>spring-webmvc</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <!-- Http client -->
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <!-- json fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
 
             <!-- DAO layer -->
             <dependency>
@@ -318,11 +353,6 @@
             <dependency>
                 <groupId>org.jboss.resteasy</groupId>
                 <artifactId>resteasy-jackson-provider</artifactId>
-                <version>${resteasy.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.resteasy</groupId>
-                <artifactId>resteasy-links</artifactId>
                 <version>${resteasy.version}</version>
             </dependency>
             <dependency>
